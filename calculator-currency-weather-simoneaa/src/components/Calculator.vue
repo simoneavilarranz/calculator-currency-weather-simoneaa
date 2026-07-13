@@ -3,7 +3,9 @@
 
     const display = ref('0')
 
-    
+    const previousValue = ref('')
+
+    let currentOperator = ref()
 
     function addNumber(num) {
         if (display.value === '0') {
@@ -11,6 +13,38 @@
         } else {
             display.value += num
         }
+    }
+
+    function addDot() {
+        if (!display.value.includes('.')) {
+            display.value += '.'
+        }
+    }
+
+    function setOperator(op) {
+        previousValue.value = display.value
+        currentOperator.value = op
+        display.value = '0'
+    }
+
+    function calculate() {
+        const prev = parseFloat(previousValue.value)
+        const curr = parseFloat(display.value)
+        
+        if (currentOperator.value === '+') {
+            display.value = (prev + curr).toString()
+        } else if (currentOperator.value === '-') {
+            display.value = (prev - curr).toString()
+        } else if (currentOperator.value === '*') {
+            display.value = (prev * curr).toString()
+        } else if (currentOperator.value === '/') {
+            if (curr === 0) {
+                display.value = 'Error'
+                return
+            }
+            display.value = (prev / curr).toString()
+        }
+        
     }
 
     function clear() {
@@ -26,19 +60,19 @@
             <button @click="addNumber('7')">7</button>
             <button @click="addNumber('8')">8</button>
             <button @click="addNumber('9')">9</button>
-            <button>/</button>
+            <button @click="setOperator('/')">/</button>
             <button @click="addNumber('4')">4</button>
             <button @click="addNumber('5')">5</button>
             <button @click="addNumber('6')">6</button>
-            <button>*</button>
+            <button @click="setOperator('*')">*</button>
             <button @click="addNumber('1')">1</button>
             <button @click="addNumber('2')">2</button>
             <button @click="addNumber('3')">3</button>
-            <button>+</button>
+            <button @click="setOperator('+')">+</button>
             <button @click="addNumber('0')">0</button>
-            <button>.</button>
-            <button>=</button>
-            <button>-</button>
+            <button @click="addDot">.</button>
+            <button @click="calculate">=</button>
+            <button @click="setOperator('-')">-</button>
             <button @click="clear">CE</button>
         </div>
     </div>
