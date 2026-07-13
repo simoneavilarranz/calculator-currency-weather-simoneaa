@@ -54,7 +54,7 @@
 </script>
 
 <template>
-    <div class="bg-gray-700 rounded-xl shadow-lg p-4 max-w-lg">
+    <div class="bg-gray-700 rounded-xl shadow-lg p-4 min-w-sm">
         <input type="text" class="p-3 rounded-lg text-black font-regular text-lg w-full mb-4 bg-gray-100" v-model="display"></input>
         <div class="grid grid-cols-4 gap-2">
             <button class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130" @click="addNumber('7')">7</button>
