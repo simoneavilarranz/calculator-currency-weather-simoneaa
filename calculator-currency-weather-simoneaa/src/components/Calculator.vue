@@ -5,9 +5,15 @@
 
     const previousValue = ref('')
 
+    const justCalculated = ref(false)
+
     let currentOperator = ref()
 
     function addNumber(num) {
+        if (justCalculated.value) {
+            display.value = '0'
+            justCalculated.value = false
+        }
         if (display.value === '0') {
             display.value = num
         } else {
@@ -22,6 +28,9 @@
     }
 
     function setOperator(op) {
+        if (currentOperator.value) {
+            calculate()
+        }
         previousValue.value = display.value
         currentOperator.value = op
         display.value = '0'
@@ -44,7 +53,7 @@
             }
             display.value = (prev / curr).toString()
         }
-        
+        justCalculated.value = true
     }
 
     function clear() {
