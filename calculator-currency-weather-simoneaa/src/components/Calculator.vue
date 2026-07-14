@@ -63,7 +63,7 @@
 </script>
 
 <template>
-    <div class="bg-gray-700 rounded-xl shadow-2xl p-4 min-w-sm">
+    <div class="bg-gray-700 rounded-xl shadow-2xl p-4 w-sm h-xl">
         <input type="text" class="p-3 rounded-lg text-black font-regular text-lg w-full mb-4 bg-gray-100" v-model="display"></input>
         <div class="grid grid-cols-4 gap-2">
             <button class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130" @click="addNumber('7')">7</button>
@@ -82,7 +82,7 @@
             <button class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130" @click="addDot">.</button>
             <button class="p-3 rounded-lg text-white font-bold text-md bg-green-500 hover:brightness-130" @click="calculate">=</button>
             <button class="p-3 rounded-lg text-white font-bold text-md bg-orange-500 hover:brightness-130" @click="setOperator('-')">-</button>
-            <button class="p-3 rounded-lg text-white font-bold text-md bg-red-500 hover:brightness-160" @click="clear">CE</button>
+            <button class="p-3 rounded-lg text-white font-bold text-md bg-red-500 col-span-full hover:brightness-160" @click="clear">CE</button>
         </div>
     </div>
 </template>
