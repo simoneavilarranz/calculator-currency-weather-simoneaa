@@ -1,12 +1,16 @@
 <script setup>
      import axios from 'axios';
-import { ref } from 'vue'
+    import { ref } from 'vue'
 
     const viewMode = ref('nacional')
     const weatherData = ref(null)
+    const currentWeather = ref('Spain')
+    const maxTemp = ref('')
+    const minTemp = ref('')
+    const weatherDesc = ref('')
 
     const skyImages = {
-        
+
     }
 
     async function weatherSpain() {
@@ -20,7 +24,12 @@ import { ref } from 'vue'
 
     async function weatherAsturias() {
         try{
-            const response = await axios.get('https://api.el-tiempo.net/json/v3/provincias/33')
+            const response = await axios.get('https://www.el-tiempo.net/api/json/v2/provincias/33/municipios/33044')
+            const data = response.data
+            currentWeather.value = data.name
+            maxTemp.value = data.temperatures.max
+            minTemp.value = data.temperatures.min
+            weatherDesc.value = data.stateSky.description
         }
         catch (error) {
             console.error('Error', error)
