@@ -10,7 +10,7 @@
     async function convertCurrency() {
 
         if (!amount.value || !fromCurrency.value || !toCurrency.value) {
-            result.value = 'Por favor, completa todos los campos'
+            result
             return
         }
 
@@ -53,10 +53,10 @@
             </select>
             <button class="p-3 rounded-lg text-white font-bold text-md bg-red-500 col-span-full hover:brightness-130" @click="convertCurrency">Convert</button>
             <h1 class="p-3 text-white font-bold text-lg text-center col-span-full">Converted Amount</h1>
-            <div class="p-3 rounded-lg text-black font-regular text-lg w-full bg-gray-100 min-h-[48px] flex items-center">
+            <div class="p-3 rounded-lg text-black font-regular text-lg w-full bg-gray-100 min-h-12 flex items-center">
                 {{ amount }} {{ fromCurrency }}
             </div>
-            <div class="p-3 rounded-lg text-black font-regular text-lg w-full bg-gray-100 min-h-[48px] flex items-center">
+            <div class="p-3 rounded-lg text-black font-regular text-lg w-full bg-gray-100 min-h-12 flex items-center">
                 {{ result }} {{ toCurrency }}
             </div>
         </div>
@@ -64,4 +64,3 @@
 </template>
 
 <style scoped></style>
->
