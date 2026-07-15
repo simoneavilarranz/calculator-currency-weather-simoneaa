@@ -37,24 +37,27 @@
     }
 
     function calculate() {
-        const prev = parseFloat(previousValue.value)
-        const curr = parseFloat(display.value)
-        
-        if (currentOperator.value === '+') {
-            display.value = (prev + curr).toString()
-        } else if (currentOperator.value === '-') {
-            display.value = (prev - curr).toString()
-        } else if (currentOperator.value === '*') {
-            display.value = (prev * curr).toString()
-        } else if (currentOperator.value === '/') {
-            if (curr === 0) {
-                display.value = 'Error'
-                return
-            }
-            display.value = (prev / curr).toString()
+    const prev = parseFloat(previousValue.value)
+    const curr = parseFloat(display.value)
+    
+    if (currentOperator.value === '+') {
+        display.value = (prev + curr).toString()
+    } else if (currentOperator.value === '-') {
+        display.value = (prev - curr).toString()
+    } else if (currentOperator.value === '*') {
+        display.value = (prev * curr).toString()
+    } else if (currentOperator.value === '/') {
+        if (curr === 0) {
+            display.value = 'Error'
+            return
         }
-        justCalculated.value = true
+        display.value = (prev / curr).toString()
     }
+    
+    currentOperator.value = null
+    previousValue.value = ''
+    justCalculated.value = true
+}
 
     function clear() {
         display.value = '0'
