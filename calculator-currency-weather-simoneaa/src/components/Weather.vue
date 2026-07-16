@@ -22,9 +22,13 @@
         }
     }
 
-    async function weatherAsturias() {
+    /*async function weatherAsturias() {
         try{
-            const response = await axios.get('https://www.el-tiempo.net/api/json/v2/provincias/33/municipios/33044')
+            const response = await axios.get('/api-tiempo/json/v3/provincias/33', {
+                headers: {
+                    'Access-Control-Allow-Origin' : '*'
+                }
+            })
             const data = response.data
             currentWeather.value = data.name
             maxTemp.value = data.temperatures.max
@@ -32,6 +36,25 @@
             weatherDesc.value = data.stateSky.description
         }
         catch (error) {
+            console.error('Error', error)
+        }
+    }*/
+
+    async function weatherAsturias() {
+        try {
+            const response = await fetch('https://api.el-tiempo.net/json/v3/provincias/33/municipios/33044')
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`)
+            }
+            const data = await response.json()
+
+            console.log(data)
+
+            currentWeather.value = data.municipio.NOMBRE
+            maxTemp.value = data.temperaturas.max
+            minTemp.value = data.temperaturas.min
+            weatherDesc.value = data.stateSky.description
+        } catch (error) {
             console.error('Error', error)
         }
     }
