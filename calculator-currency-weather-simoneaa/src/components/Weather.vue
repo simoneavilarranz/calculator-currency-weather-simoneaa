@@ -1,7 +1,13 @@
 <script setup>
 import ElTiempoService from '@/core/services/ElTiempoService';
 import axios from 'axios';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+
+onMounted(async () => {
+    await weatherSpain()
+    selectedProvincia.value = '28'
+    await loadProvinciaData()
+})
 
 const currentWeather = ref('Madrid')
 const maxTemp = ref('')
@@ -41,7 +47,8 @@ async function weatherAsturias() {
 async function loadProvinciaData() {
     if (!selectedProvincia.value) return
     try {
-        const data = await tiempoService.getMunicipio(selectedProvincia.value)
+        const data = await tiempoService.getDatosProvincia(selectedProvincia.value)
+        console.log(data)
         currentWeather.value = data.municipio?.NOMBRE || data.title || ''
         maxTemp.value = data.temperaturas?.max || ''
         minTemp.value = data.temperaturas?.min || ''
@@ -54,7 +61,8 @@ async function loadProvinciaData() {
 async function loadMunicipioData() {
     if (!selectedMunicipio.value) return
     try {
-        const data = await tiempoService.getMunicipio(selectedMunicipio.value)
+        const data = await tiempoService.getDatosMunicipio(selectedMunicipio.value)
+        console.log(data)
         currentWeather.value = data.municipio?.NOMBRE || data.title || ''
         maxTemp.value = data.temperaturas?.max || ''
         minTemp.value = data.temperaturas?.min || ''
@@ -103,18 +111,18 @@ async function loadMunicipioData() {
             <select class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130 col-span-full"
                 v-show="municipios.length > 0" v-model="selectedMunicipio" @change="loadMunicipioData">
                 <option value="" disabled>Selecciona municipio</option>
-                <option v-for="m in municipios" :key="m.CODIGOINE" :value="m.CODIGOINE">
+                <option v-for="m in municipios" :key="m.COD_GEO" :value="m.COD_GEO">
                     {{ m.NOMBRE }}
                 </option>
             </select>
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-2 gap-2 col-span-full">
                 <h1 class="p-3 text-white font-bold text-lg text-center">Max</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">Min</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">{{ maxTemp }}</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">{{ minTemp }}</h1>
             </div>
             <img src="" alt="">
-            <p>{{ weatherDesc }}</p>
+            <p class="p-3 text-white font-bold text-lg text-center col-span-full"> {{ weatherDesc }}</p>
         </div>
     </div>
 </template>
