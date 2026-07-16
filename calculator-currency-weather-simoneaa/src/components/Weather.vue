@@ -3,44 +3,66 @@ import ElTiempoService from '@/core/services/ElTiempoService';
 import axios from 'axios';
 import { ref } from 'vue'
 
-const viewMode = ref('nacional')
-const weatherData = ref(null)
-const currentWeather = ref('Spain')
+const currentWeather = ref('Madrid')
 const maxTemp = ref('')
 const minTemp = ref('')
 const weatherDesc = ref('')
+const provincias = ref([])
+const selectedProvincia = ref('')
+const municipios = ref([])
+const selectedMunicipio = ref('')
 
 const skyImages = {
 
 }
 
+const tiempoService = new ElTiempoService();
+
 async function weatherSpain() {
+    municipios.value = []
     try {
-        const response = await axios.get('https://api.el-tiempo.net/json/v3/general')
-    }
-    catch (error) {
+        const data = await tiempoService.getProvincias()
+        provincias.value = data.provincias
+    } catch (error) {
         console.error('Error', error)
     }
 }
 
-new ElTiempoService();
-/*async function weatherAsturias() {
-    try{
-        const response = await axios.get('/api-tiempo/json/v3/provincias/33', {
-            headers: {
-                'Access-Control-Allow-Origin' : '*'
-            }
-        })
-        const data = response.data
-        currentWeather.value = data.name
-        maxTemp.value = data.temperatures.max
-        minTemp.value = data.temperatures.min
-        weatherDesc.value = data.stateSky.description
-    }
-    catch (error) {
+async function weatherAsturias() {
+    provincias.value = []
+    try {
+        const data = await tiempoService.getMunicipios('33')
+        municipios.value = data.municipios
+    } catch (error) {
         console.error('Error', error)
     }
-}*/
+}
+
+async function loadProvinciaData() {
+    if (!selectedProvincia.value) return
+    try {
+        const data = await tiempoService.getMunicipio(selectedProvincia.value)
+        currentWeather.value = data.municipio?.NOMBRE || data.title || ''
+        maxTemp.value = data.temperaturas?.max || ''
+        minTemp.value = data.temperaturas?.min || ''
+        weatherDesc.value = data.stateSky?.description || ''
+    } catch (error) {
+        console.error('Error', error)
+    }
+}
+
+async function loadMunicipioData() {
+    if (!selectedMunicipio.value) return
+    try {
+        const data = await tiempoService.getMunicipio(selectedMunicipio.value)
+        currentWeather.value = data.municipio?.NOMBRE || data.title || ''
+        maxTemp.value = data.temperaturas?.max || ''
+        minTemp.value = data.temperaturas?.min || ''
+        weatherDesc.value = data.stateSky?.description || ''
+    } catch (error) {
+        console.error('Error', error)
+    }
+}
 
 /* async function weatherAsturias() {
     try {
@@ -71,7 +93,20 @@ new ElTiempoService();
                 @click="weatherSpain">Spain</button>
             <button class="p-3 rounded-lg text-white font-bold text-md bg-green-500 hover:brightness-130"
                 @click="weatherAsturias">Asturias</button>
-            <h1 class="p-3 text-white font-bold text-lg text-center col-span-full">{{ currentWeather }}</h1>
+            <select class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130 col-span-full"
+                v-show="provincias.length > 0" v-model="selectedProvincia" @change="loadProvinciaData">
+                <option value="" disabled>Selecciona provincia</option>
+                <option v-for="p in provincias" :key="p.CODPROV" :value="p.CODPROV">
+                    {{ p.NOMBRE_PROVINCIA }}
+                </option>
+            </select>
+            <select class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130 col-span-full"
+                v-show="municipios.length > 0" v-model="selectedMunicipio" @change="loadMunicipioData">
+                <option value="" disabled>Selecciona municipio</option>
+                <option v-for="m in municipios" :key="m.CODIGOINE" :value="m.CODIGOINE">
+                    {{ m.NOMBRE }}
+                </option>
+            </select>
             <div class="grid grid-cols-2 gap-2">
                 <h1 class="p-3 text-white font-bold text-lg text-center">Max</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">Min</h1>

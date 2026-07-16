@@ -1,17 +1,25 @@
 import axios from 'axios'
 
 export default class ElTiempoService {
-  constructor() {
-    this.get()
-  }
-
-  async get() {
+  async getProvincias() {
     try {
-      const response = await axios.get('https://api.el-tiempo.net/json/v3/provincias/33')
-      const data = response.data
-      console.log(data)
+      const response = await axios.get('https://api.el-tiempo.net/json/v3/provincias')
+      return response.data
     } catch (error) {
       console.error('Error', error)
+      throw error
+    }
+  }
+
+  async getMunicipios(codProvincia) {
+    try {
+      const response = await axios.get(
+        `https://api.el-tiempo.net/json/v3/provincias/${codProvincia}/municipios`,
+      )
+      return response.data
+    } catch (error) {
+      console.error('Error', error)
+      throw error
     }
   }
 }
