@@ -20,9 +20,16 @@ const municipios = ref([])
 const selectedMunicipio = ref('')
 const ciudades = ref([])
 const selectedCiudad = ref('')
+const skyId = ref('')
 
 const skyImages = {
-
+    '11': '☀️',
+    '12': '🌤️',
+    '13': '⛅',
+    '17': '☁️',
+    '23': '🌧️',
+    '43': '🌦️',
+    '45': '🌧️',
 }
 
 const tiempoService = new ElTiempoService();
@@ -45,6 +52,7 @@ async function loadCiudadData() {
         maxTemp.value = ciudad.temperatures.max
         minTemp.value = ciudad.temperatures.min
         weatherDesc.value = ciudad.stateSky.description
+        skyId.value = ciudad.stateSky.id
     }
 }
 
@@ -67,8 +75,8 @@ async function loadMunicipioData() {
         maxTemp.value = data.temperaturas?.max || ''
         minTemp.value = data.temperaturas?.min || ''
         weatherDesc.value = data.stateSky?.description || ''
+        skyId.value = data.stateSky?.id || ''
     } catch (error) {
-        console.error('Error', error)
     }
 }
 
@@ -122,6 +130,7 @@ async function loadMunicipioData() {
                 <h1 class="p-3 text-white font-bold text-lg text-center">{{ minTemp }}</h1>
             </div>
             <img src="" alt="">
+            <p class="text-4xl text-center col-span-full">{{ skyImages[skyId] || '🌈' }}</p>
             <p class="p-3 text-white font-bold text-lg text-center col-span-full"> {{ weatherDesc }}</p>
         </div>
     </div>
