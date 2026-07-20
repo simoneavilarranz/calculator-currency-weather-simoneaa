@@ -5,18 +5,21 @@ import { ref, onMounted } from 'vue'
 
 onMounted(async () => {
     await weatherSpain()
-    selectedProvincia.value = '28'
-    await loadProvinciaData()
+    const madrid = ciudades.value.find(c => c.name === 'Madrid')
+    if (madrid) {
+        selectedCiudad.value = madrid.id[0]
+        await loadCiudadData()
+    }
 })
 
 const currentWeather = ref('Madrid')
 const maxTemp = ref('')
 const minTemp = ref('')
 const weatherDesc = ref('')
-const provincias = ref([])
-const selectedProvincia = ref('')
 const municipios = ref([])
 const selectedMunicipio = ref('')
+const ciudades = ref([])
+const selectedCiudad = ref('')
 
 const skyImages = {
 
@@ -27,32 +30,29 @@ const tiempoService = new ElTiempoService();
 async function weatherSpain() {
     municipios.value = []
     try {
-        const data = await tiempoService.getProvincias()
-        provincias.value = data.provincias
+        const data = await tiempoService.getGeneral()
+        ciudades.value = data.ciudades
     } catch (error) {
         console.error('Error', error)
+    }
+}
+
+async function loadCiudadData() {
+    if (!selectedCiudad.value) return
+    const ciudad = ciudades.value.find(c => c.id[0] === selectedCiudad.value)
+    if (ciudad) {
+        currentWeather.value = ciudad.name
+        maxTemp.value = ciudad.temperatures.max
+        minTemp.value = ciudad.temperatures.min
+        weatherDesc.value = ciudad.stateSky.description
     }
 }
 
 async function weatherAsturias() {
-    provincias.value = []
+    ciudades.value = []
     try {
         const data = await tiempoService.getMunicipios('33')
         municipios.value = data.municipios
-    } catch (error) {
-        console.error('Error', error)
-    }
-}
-
-async function loadProvinciaData() {
-    if (!selectedProvincia.value) return
-    try {
-        const data = await tiempoService.getDatosProvincia(selectedProvincia.value)
-        console.log(data)
-        currentWeather.value = data.municipio?.NOMBRE || data.title || ''
-        maxTemp.value = data.temperaturas?.max || ''
-        minTemp.value = data.temperaturas?.min || ''
-        weatherDesc.value = data.stateSky?.description || ''
     } catch (error) {
         console.error('Error', error)
     }
@@ -102,10 +102,10 @@ async function loadMunicipioData() {
             <button class="p-3 rounded-lg text-white font-bold text-md bg-green-500 hover:brightness-130"
                 @click="weatherAsturias">Asturias</button>
             <select class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130 col-span-full"
-                v-show="provincias.length > 0" v-model="selectedProvincia" @change="loadProvinciaData">
-                <option value="" disabled>Selecciona provincia</option>
-                <option v-for="p in provincias" :key="p.CODPROV" :value="p.CODPROV">
-                    {{ p.NOMBRE_PROVINCIA }}
+                v-show="ciudades.length > 0" v-model="selectedCiudad" @change="loadCiudadData">
+                <option value="" disabled>Selecciona ciudad</option>
+                <option v-for="c in ciudades" :key="c.id[0]" :value="c.id[0]">
+                    {{ c.name }}
                 </option>
             </select>
             <select class="p-3 rounded-lg text-white font-bold text-md bg-gray-600 hover:brightness-130 col-span-full"
@@ -115,7 +115,7 @@ async function loadMunicipioData() {
                     {{ m.NOMBRE }}
                 </option>
             </select>
-            <div class="grid grid-cols-2 gap-2 col-span-full">
+            <div class="grid grid-cols-2 gap-1 col-span-full">
                 <h1 class="p-3 text-white font-bold text-lg text-center">Max</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">Min</h1>
                 <h1 class="p-3 text-white font-bold text-lg text-center">{{ maxTemp }}</h1>
