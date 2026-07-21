@@ -60,7 +60,7 @@ npm run dev
 
 <img src="/calculator-currency-weather-simoneaa/src/assets/calculator.png">
 <img src="/calculator-currency-weather-simoneaa/src/assets/currency.png">
-<img src="weather.png">
+<img src="/calculator-currency-weather-simoneaa/src/assets/weather.png">
 
 ## 🧪 Testing
 
@@ -74,8 +74,8 @@ npm run test:unit
 npm run test:e2e
 ```
 
-<img src="vitest.jpg">
-<img src="playwright.png">
+<img src="/calculator-currency-weather-simoneaa/src/assets/vitest.jpg">
+<img src="/calculator-currency-weather-simoneaa/src/assets/playwright.png">
 
 ## 👩‍💻 Autora
 
