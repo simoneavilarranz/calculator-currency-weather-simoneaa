@@ -35,12 +35,12 @@ Emmpleando el framework VUE, se nos solicitaba crear una aplicación que requier
 - Playwright
 - Tailwind  
 
-# Instalar dependencias del proyecto
+**Instalar dependencias del proyecto**
 ```
 npm install
 ```
 
-# Instalar dependencias adicionales
+**Instalar dependencias adicionales**
 ```
 npm install axios
 npm install -D tailwindcss postcss autoprefixer @tailwindcss/vite
@@ -57,6 +57,8 @@ npx playwright install
 ```
 npm run dev
 ```
+
+
 
 ## 🧪 Testing
 
