@@ -53,6 +53,8 @@ npx playwright install
 
 ## 💻 Resultado final
 
+El cambio entre las diferentes vistas sin emplear el router se utiliza a través de los botones en la parte superior, empleando "v-show".
+
 # Ejecutar programa
 ```
 npm run dev
