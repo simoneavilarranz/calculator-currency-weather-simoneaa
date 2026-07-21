@@ -46,7 +46,7 @@ npm install axios
 npm install -D tailwindcss postcss autoprefixer @tailwindcss/vite
 ```
 
-# Instalar navegadores para Playwright
+**Instalar navegadores para Playwright**
 ```
 npx playwright install
 ```
@@ -58,7 +58,9 @@ npx playwright install
 npm run dev
 ```
 
-
+<img src="calculator.png">
+<img src="currency.png">
+<img src="weather.png">
 
 ## 🧪 Testing
 
@@ -71,6 +73,9 @@ npm run test:unit
 ```
 npm run test:e2e
 ```
+
+<img src="vitest.jpg">
+<img src="playwright.png">
 
 ## 👩‍💻 Autora
 
