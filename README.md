@@ -66,12 +66,12 @@ npm run dev
 
 ## 🧪 Testing
 
-# 6. Ejecutar tests unitarios
+**Ejecutar tests unitarios**
 ```
 npm run test:unit
 ```
 
-# Ejecutar tests E2E (con el servidor corriendo)
+**Ejecutar tests E2E (con el servidor activo)**
 ```
 npm run test:e2e
 ```
