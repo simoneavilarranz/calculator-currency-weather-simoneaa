@@ -25,7 +25,7 @@ Emmpleando el framework VUE, se nos solicitaba crear una aplicación que requier
 - Mostrar una imagen en función del "StateSky"
 - Se puede elegir entre la información nacional o de una provincia (Asturias)
 
-## 🛠️ Tecnologías empleadas
+## 🛠️ Tecnologías empleadas e instalación
 
 - HTML 5
 - CSS 3
@@ -33,10 +33,43 @@ Emmpleando el framework VUE, se nos solicitaba crear una aplicación que requier
 - Vue
 - Vitest
 - Playwright
-- Tailwind
+- Tailwind  
+
+# Instalar dependencias del proyecto
+```
+npm install
+```
+
+# Instalar dependencias adicionales
+```
+npm install axios
+npm install -D tailwindcss postcss autoprefixer @tailwindcss/vite
+```
+
+# Instalar navegadores para Playwright
+```
+npx playwright install
+```
+
+## 💻 Resultado final
+
+# Ejecutar programa
+```
+npm run dev
+```
 
 ## 🧪 Testing
 
+# 6. Ejecutar tests unitarios
+```
+npm run test:unit
+```
+
+# Ejecutar tests E2E (con el servidor corriendo)
+```
+npm run test:e2e
+```
+
 ## 👩‍💻 Autora
 
-Simone Ávila Arranz - Factoría F5 P5
+Simone Ávila Arranz - Factoría F5 Curso P5
