@@ -58,8 +58,8 @@ npx playwright install
 npm run dev
 ```
 
-<img src="calculator.png">
-<img src="currency.png">
+<img src="/calculator-currency-weather-simoneaa/src/assets/calculator.png">
+<img src="/calculator-currency-weather-simoneaa/src/assets/currency.png">
 <img src="weather.png">
 
 ## 🧪 Testing
